@@ -58,11 +58,11 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-light-dark elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link" style="text-align: center;">
+    <!-- <a href="#" class="brand-link" style="text-align: center;">
       <span ><b>Sistem Pengadaan <b/><br>Bahan Pustaka</span>
-    </a>
+    </a> -->
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -91,10 +91,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?php echo base_url('Buku') ?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Menu 1
+                Database Koleksi Buku
               </p>
             </a>
           </li>

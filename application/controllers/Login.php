@@ -37,7 +37,8 @@ class Login extends CI_Controller {
 
 				$admin['isLoggedIn']=true;
 				$this->session->set_userdata($admin);
-				$this->load->view('v_dashboard');
+				redirect('Dashboard','refresh');
+				//$this->load->view('v_dashboard');
 				}
 			
 		}

@@ -8,6 +8,6 @@ class M_user extends CI_Model {
 		$this->db->select('*');
 		$this->db->where('username',$user);
 		$this->db->where('password',$pass);
-		return $this->db->get('user');
+		return $this->db->get('operator');
 	} 
 }
