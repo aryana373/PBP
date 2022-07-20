@@ -93,4 +93,7 @@ require('v_header.php');
 <?php
 require('v_footer.php');
 ?>
+<script type="text/javascript">
+  $('#dashboard').addClass("active");
+</script>
  

@@ -29,7 +29,9 @@ require('v_header.php');
 
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body">
+               <div class="card-body overlay-wrapper">
+     
+                  <div id="preloader" class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr style="background:  #551E1E; color: white; text-align: center;">
@@ -91,19 +93,8 @@ require('v_footer.php');
 <script src="<?php echo base_url('assets/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
  
  <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
+
+  $('#buku').addClass("active");
+  
+
 </script>

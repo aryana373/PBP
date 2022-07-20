@@ -25,9 +25,11 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE/plugins/daterangepicker/daterangepicker.css') ?>">
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE/plugins/summernote/summernote-bs4.min.css') ?>">
-</head>
+  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE/plugins/toastr/toastr.min.css') ?>">
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+<div class="wrapper ">
 
 
 
@@ -83,7 +85,7 @@
                with font-awesome or any other icon font library -->
          
           <li class="nav-item" >
-            <a href="<?php echo base_url('Dashboard') ?>" class="nav-link active">
+            <a id="dashboard" href="<?php echo base_url('Dashboard') ?>" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -91,7 +93,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url('Buku') ?>" class="nav-link">
+            <a id="buku" href="<?php echo base_url('Buku') ?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Database Koleksi Buku
@@ -99,10 +101,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+            <a id="katalog" href="<?php echo base_url('Buku/katalog') ?>" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
               <p>
-                Menu 2
+                Data Katalog
               </p>
             </a>
           </li>

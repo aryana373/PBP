@@ -9,4 +9,22 @@ class M_buku extends CI_Model {
 	  return $this->db->get('tb_buku');
 	}
 
+	public function select_buku_database(){
+
+      $this->db->select('*');
+      $this->db->where('status','1');
+	  return $this->db->get('tb_buku');
+	}
+	public function select_katalog(){
+
+      $this->db->select('*');
+      $this->db->where('status','2');
+      $this->db->order_by('id_buku',"desc");
+	  return $this->db->get('tb_buku');
+	}
+
+	public function tambah_katalog($data){
+		$this->db->insert('tb_buku', $data);
+	}
+
 }
