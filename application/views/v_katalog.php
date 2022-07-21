@@ -31,7 +31,7 @@ require('v_header.php');
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                 <button id="input" type="button" class="btn bg-gradient-success btn-lg float-right">Tambah Data </button></i></button>
+                 <button id="input" type="button" class="btn bg-gradient-success btn float-right">Tambah Data </button></i></button>
                 
 
               <div id="inputkatalog" style="display:none">
@@ -57,7 +57,7 @@ require('v_header.php');
                                 <div class="form-group">
                                  <label >Tahun</label>
                                  <select name="add_tahun" id="add_tahun" class="form-control" >
-                                  <option> </option>'
+                                  <option> </option>
                                     <?php
                                       for($i=1990; $i<= date('Y'); $i+=1){
                                       echo'<option value='.$i.'> '.$i.' </option>';
@@ -72,7 +72,7 @@ require('v_header.php');
                               <div class="form-group">
                                  <label >Bahasa</label>
                                  <select name="add_bahasa" id="add_bahasa" class="form-control" >
-                                  <option> </option>'
+                                  <option> </option>
                                   <option value='Indonesia'> Indonesia </option>
                                   <option value='Inggris'> Inggris </option>
                                   </select>
@@ -86,9 +86,69 @@ require('v_header.php');
                    
                 <!-- /.card-body -->
 
-                <div class="card-footer float-right">
+                <div class="card-body float-right">
                   <button type="button" id="batal" class="btn btn-danger">Batal</button>
                   <button type="button" id="btn-add-katalog" class="btn btn-primary">Tambah</button>
+                </div>
+              </form>
+              </div>
+
+
+              <div id="editkatalog" style="display:none">
+                 <form role="form" method="post" action="" id="form-edit-katalog">
+                     <div class="card-body ">
+                        
+                           <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                 <label >Judul Buku</label>
+                                 <input id="edit_judul"  type="text" class="form-control" placeholder="Masukan Judul Buku" >
+                                </div>
+                                <div class="form-group">
+                                 <label >Pengarang</label>
+                                 <input id="edit_pengarang" type="text" class="form-control"  placeholder="Pengarang" >
+                                </div> 
+                                <div class="form-group">
+                                 <label >Penerbit</label>
+                                 <input id="edit_penerbit" type="text" class="form-control"  placeholder="Penerbit" >
+                                </div>                                  
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                 <label >Tahun</label>
+                                 <select id="edit_tahun" class="form-control" >
+                                
+                                    <?php
+                                      for($i=1990; $i<= date('Y'); $i+=1){
+                                      echo'<option value='.$i.'> '.$i.' </option>';
+                                      }
+                                      ?>
+                                  </select>
+                                </div>
+                              <div class="form-group">
+                                 <label >Harga</label>
+                                 <input id="edit_harga" type="text" class="form-control"  placeholder="Harga Buku" >
+                                </div>   
+                              <div class="form-group">
+                                 <label >Bahasa</label>
+                                 <select  id="edit_bahasa" class="form-control" >
+                                  
+                                  <option value='Indonesia'> Indonesia </option>
+                                  <option value='Inggris'> Inggris </option>
+                                  </select>
+                                </div>                          
+                              </div>
+                               
+                          </div> 
+                      </div>
+
+                     
+                   
+                <!-- /.card-body -->
+
+                <div class="card-body float-right">
+                  <button type="button" id="batal2" class="btn btn-danger">Batal</button>
+                  <button type="button" id="btn-edit-katalog" class="btn btn-warning">Edit</button>
                 </div>
               </form>
               </div>
@@ -125,8 +185,8 @@ require('v_header.php');
                        <td style=" width: 100px;text-align: center;">
                             <div class="btn-group">  
                                  <button onclick="detail(<?php echo $row->id_buku; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip" title="Detail"><i class="fa fa-search"></i></button>
-                                 <button onclick="editSurat(<?php echo $row->id_buku; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>
-                                 <button onclick="deleteKatalog(<?php echo $row->id_buku; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
+                                 <button onclick="editBuku(<?php echo $row->id_buku; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>
+                                 <button onclick="deleteBuku(<?php echo $row->id_buku; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
                                 <i class="fa fa-trash"></i></button>
                                 
                             </div>
@@ -192,6 +252,73 @@ require('v_header.php');
          </div>
       </div>
 
+  <!-- modal detail -->
+<div id="modalDetail" class="modal " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        
+
+         <div class="modal-body">
+             <div class="form-group">
+                <form role="form" method="post" action="" >
+                 <div class="card-body ">
+                        
+                           <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                 <label >Judul Buku</label>
+                                 <textarea id="detail_judul"  type="" class="form-control" rows="3"  readonly></textarea>                                 
+                               </div>
+                              </div>
+                              <div class="col-sm-6">
+                                
+                                <div class="form-group">
+                                 <label >Pengarang</label>
+                                 <input id="detail_pengarang" type="text" class="form-control"  readonly >
+                                </div> 
+                                <div class="form-group">
+                                 <label >Penerbit</label>
+                                 <input  id="detail_penerbit" type="text" class="form-control"  readonly>
+                                </div>
+                                <div class="form-group">
+                                 <label >Tanggal Input</label>
+                                 <input id="detail_tgl" type="text" class="form-control"  readonly>
+                                </div>  
+
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                 <label >Tahun</label>
+                                 <input id="detail_tahun" type="text" class="form-control"  readonly>
+                                </div>
+                              <div class="form-group">
+                                 <label >Harga</label>
+                                 <input id="detail_harga" type="text" class="form-control"  readonly>
+                                </div>
+                              <div class="form-group">
+                                 <label >Bahasa</label>
+                                 <input id="detail_bahasa" type="text" class="form-control"  readonly>
+                                </div>                          
+                              </div>
+                               
+                          </div> 
+                      </div>
+
+
+                </form>
+              </div>
+         </div>
+         <div class="modal-footer">
+            <div class="btn-group">
+               <button type="button" id="btn-cancel" class="btn btn-default btn-flat" data-dismiss="modal">Tutup</button>
+              
+            </div>
+         </div>
+         
+   </div>
+</div>
+</div>
+
    
 
   <?php
@@ -229,11 +356,15 @@ require('v_footer.php');
 
 
    $('#input').click(function(event) {
-        $('#inputkatalog').css('display','block');
+        $('#inputkatalog').show('slow');
         $('#input').css('display','none');
     });
     $('#batal').click(function(event) {
         $('#inputkatalog').css('display','none');
+        $('#input').css('display','block');
+    });
+    $('#batal2').click(function(event) {
+        $('#editkatalog').css('display','none');
         $('#input').css('display','block');
     });
 
@@ -300,7 +431,7 @@ require('v_footer.php');
 
  // get Delete Product
     
-    function deleteKatalog(id) {
+    function deleteBuku(id) {
       $('#modalDelete').modal();
       $('#idHapus').val(id);
   
@@ -321,10 +452,11 @@ require('v_footer.php');
                           "buttons": ["copy", "csv", "excel", "pdf"]
                         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
            $('#preloader').css('display','none');
-          Toast.fire({
-              icon: 'success',
-              title: '<b style="color:red">Sukses!! Data Pada Katalog Berhasil Dihapus!!<b>'
-            })
+          // Toast.fire({
+          //     icon: 'success',
+          //     title: '<b style="color:red">Sukses!! Data Pada Katalog Berhasil Dihapus!!<b>'
+          //   })
+          toastr.error('Data Pada Katalog Berhasil Dihapus!!')
         });
       });
 
@@ -373,6 +505,93 @@ require('v_footer.php');
              
 
         });
+
+  function detail(id) {
+      
+
+            $('#modalDetail').modal();
+            $.get("<?php echo base_url();?>"+"Buku/detail_buku/"+id, function(detail) {
+            var detail=jQuery.parseJSON(detail+"");
+              $('#detail_judul').val(detail.judul);
+              $('#detail_pengarang').val(detail.pengarang);
+              $('#detail_penerbit').val(detail.penerbit);
+              $('#detail_tgl').val(detail.tgl_input);
+              $('#detail_tahun').val(detail.tahun);
+              $('#detail_harga').val(detail.harga);
+              $('#detail_bahasa').val(detail.bahasa);
+              
+            
+              //console.log(lokasi.nama);
+            });
+
+
+    }
+
+  function editBuku(id){
+    $("#editkatalog").show('slow');
+    $('#input').css('display','none');
+    $('#inputkatalog').css('display','none');
+
+     $.get("<?php echo base_url();?>"+"Buku/detail_buku/"+id, function(detail) {
+            var detail=jQuery.parseJSON(detail+"");
+              $('#edit_judul').val(detail.judul);
+              $('#edit_pengarang').val(detail.pengarang);
+              $('#edit_penerbit').val(detail.penerbit);
+              $('#edit_tahun').val(detail.tahun);
+              $('#edit_harga').val(detail.harga);
+              $('#edit_bahasa').val(detail.bahasa);
+              
+
+            $('#btn-edit-katalog').click(function(event) {
+
+                  var judul = $('#editkatalog').find('#edit_judul').val();
+                  var pengarang = $('#editkatalog').find('#edit_pengarang ').val();
+                  var penerbit = $('#editkatalog').find('#edit_penerbit').val();
+                  var tahun = $('#editkatalog').find('#edit_tahun').val();
+                  var harga = $('#editkatalog').find('#edit_harga').val();
+                  var bahasa = $('#editkatalog').find('#edit_bahasa').val();
+            
+            
+             if (judul==''|| pengarang==''|| penerbit==''|| tahun==''|| harga==''|| bahasa=='') {
+                $("#eror").html('Data belum lengkap !!!');
+                $('#modalWarning-user').modal();
+                } 
+
+             else {
+                    $('#preloader').css('display','block');
+                    $('#editkatalog').css('display', 'none');
+
+
+                        
+                       $.post("<?php echo base_url();?>"+"Buku/update_buku/", {id:id,judul: judul, pengarang:pengarang, penerbit: penerbit, tahun: tahun,harga:harga, bahasa:bahasa }, function(data, textStatus, xhr) {
+
+                             Toast.fire({
+                                icon: 'success',
+                                title: 'Data Katalog Berhasil Dirubah!!'
+                              })
+                            
+                            $('#input').css('display','block');
+                        
+                            $('#tables-katalog').html(data);
+                            
+                            $("#example1").DataTable({
+                              "responsive": true, "lengthChange": false, "autoWidth": false,
+                              "buttons": ["copy", "csv", "excel", "pdf"]
+                            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                            $('#preloader').css('display','none');
+
+                           
+                            
+                        }); 
+
+
+                   }
+            
+            
+            }); 
+        });
+        }
+    
 
    
 

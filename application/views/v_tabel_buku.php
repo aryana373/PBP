@@ -26,8 +26,10 @@
                        <td><?php echo $row->pengarang; ?></td>
                        <td><?php echo $row->tahun; ?></td>
                        <td style=" width: 100px;text-align: center;">
-                            <div class="btn-group">  
-                                <button onclick="deleteKatalog(<?php echo $row->id_buku; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
+                              <div class="btn-group">  
+                                 <button onclick="detail(<?php echo $row->id_buku; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip" title="Detail"><i class="fa fa-search"></i></button>
+                                 <button onclick="editBuku(<?php echo $row->id_buku; ?>);" class="btn btn-success btn-flat" type="button" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></button>
+                                 <button onclick="deleteBuku(<?php echo $row->id_buku; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
                                 <i class="fa fa-trash"></i></button>
                                 
                             </div>

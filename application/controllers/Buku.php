@@ -82,7 +82,7 @@ class Buku extends CI_Controller {
     public function detail()
         {
           $data['buku']=$this->M_buku->select_katalog();
-		  $this->load->view('v_detail_katalog',$data);
+		  $this->load->view('v_tabel_buku',$data);
 
         }
 
@@ -95,6 +95,30 @@ class Buku extends CI_Controller {
         $this->db->delete('tb_buku');
         $this->detail();
     }
+
+    public function detail_buku($id)
+        {
+            $detail=$this->M_buku->select($id)->row();
+            echo json_encode($detail);
+
+        } 
+
+    public function update_buku(){
+
+          $id = $this->input->post('id');
+          $judul = $this->input->post('judul');
+          $pengarang = $this->input->post('pengarang');
+          $penerbit = $this->input->post('penerbit');
+          $tahun = $this->input->post('tahun');
+          $harga = $this->input->post('harga');
+          $bahasa = $this->input->post('bahasa');
+
+
+
+          $this->M_buku->update_buku($id,$judul,$pengarang, $penerbit, $tahun, $harga, $bahasa);
+           $this->detail();
+    }
+
 
 
 

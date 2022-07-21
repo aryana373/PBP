@@ -27,4 +27,27 @@ class M_buku extends CI_Model {
 		$this->db->insert('tb_buku', $data);
 	}
 
+	public function select($id){
+
+      $this->db->select('*');
+	  $this->db->where('id_buku',$id);
+	  return $this->db->get('tb_buku');
+	}
+
+	public function update_buku($id,$judul,$pengarang, $penerbit, $tahun, $harga, $bahasa)
+	{
+		 $data = array(
+			'judul' => $judul,
+			'pengarang' => $pengarang,
+			'penerbit' => $penerbit,
+			'tahun' => $tahun,
+			'status' => '2',
+			'harga' => $harga,
+			'bahasa' => $bahasa,
+			);
+
+		$this->db->where('id_buku',$id);
+		$this->db->update('tb_buku', $data);
+	} 
+
 }
