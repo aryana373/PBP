@@ -9,10 +9,17 @@ class Buku extends CI_Controller {
 		// $this->load->model('M_dashboard');
 		 //$this->load->library('pdf');
 
-		if (!$this->session->userdata('isLoggedIn')){
+		if (!$this->session->userdata('isLoggedIn')||$this->session->userdata('jenis_user')!='admin'){
 			$this->load->view('v_redirect_login');
 			return;
 		}
+	}
+
+	public function rupiah($angka){
+	
+	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+	return $hasil_rupiah;
+ 
 	}
 
 	public function index(){
@@ -118,6 +125,39 @@ class Buku extends CI_Controller {
           $this->M_buku->update_buku($id,$judul,$pengarang, $penerbit, $tahun, $harga, $bahasa);
            $this->detail();
     }
+
+
+    public function pilihan_user(){
+
+    	$cek= $this->M_buku->all_total_harga_terpilih();
+
+		$total=0;
+		foreach ($cek->result() as $harga){
+		$total+=$harga->total_harga_terpilih;
+		}
+		$curr=$this->M_buku->select_data_curr()->row();
+		$data['anggaran']= $this->rupiah($curr->anggaran);
+
+		
+		$data['total_terpilih']= $this->rupiah($total);
+
+
+    	$data['buku']=$this->M_buku->select_all_buku_terpilih();
+		$this->load->view('v_buku_pilihan_user',$data);
+
+	}
+
+    //Menu User
+
+  //   public function pilih_buku(){
+
+		// $data['buku']=$this->M_buku->select_katalog();
+
+		// $this->load->view('v_pilih_buku',$data);
+
+	// }
+
+
 
 
 

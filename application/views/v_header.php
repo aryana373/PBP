@@ -83,8 +83,39 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-         
+       
+
+         <?php if ($this->session->userdata('jenis_user')=='user') { ?>
           <li class="nav-item" >
+            <a id="pilih_buku" href="<?php echo base_url('User') ?>" class="nav-link ">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Pilihan Buku
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" >
+            <a id="terpilih" href="<?php echo base_url('User/terpilih') ?>" class="nav-link ">
+              <i class="nav-icon fas fa-search"></i>
+              <p>
+                Buku Terpilih
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a id="hasil" href="<?php echo base_url('Buku/katalog') ?>" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>
+                Hasil Pengadaan
+              </p>
+            </a>
+          </li>
+        <?php } 
+         if ($this->session->userdata('jenis_user')=='admin') { 
+           ?>
+
+          
+           <li class="nav-item" >
             <a id="dashboard" href="<?php echo base_url('Dashboard') ?>" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -108,6 +139,47 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-columns"></i>
+              <p>
+                Seleksi Pengadaan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul id="dropdown" class="nav nav-treeview" >
+              <li class="nav-item ">
+                <a id="terpilih_user" href="<?php echo base_url('Buku/pilihan_user') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pilihan User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Seleksi Duplikat</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/boxed.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Seleksi Tahun</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a id="katalog" href="<?php echo base_url('Buku/katalog') ?>" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>
+                Hasil Rekomendasi
+              </p>
+            </a>
+          </li>
+
+          <?php } 
+           ?>
           <li class="nav-item">
             <a href="<?php echo base_url('Login/unauth') ?>" class="nav-link">
               <i class="nav-icon fas fa-arrow-circle-right"></i>

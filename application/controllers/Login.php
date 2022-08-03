@@ -7,13 +7,21 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('M_user');
+		$this->load->model('M_buku');
 		 $this->load->library('session');      
 	} 
 
 	public function index()
 	{
 		if ($this->session->userdata('isLoggedIn')) {
-			$this->load->view('v_dashboard');
+
+			if ($this->session->userdata('jenis_user')=='admin') {
+				$this->load->view('v_dashboard');
+			}
+			else {
+				redirect('User','refresh');
+			}
+			
 			
 			
 		}
@@ -37,8 +45,14 @@ class Login extends CI_Controller {
 
 				$admin['isLoggedIn']=true;
 				$this->session->set_userdata($admin);
-				redirect('Dashboard','refresh');
-				//$this->load->view('v_dashboard');
+				
+					if ($this->session->userdata('jenis_user')=='admin') {
+						redirect('Dashboard','refresh');
+					}
+					else {
+						redirect('User','refresh');
+					}
+			
 				}
 			
 		}

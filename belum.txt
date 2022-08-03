@@ -1,0 +1,17 @@
+git add .
+git commit -m "tampil tabel db bahan pustaka"
+git push -u origin 
+
+
+- update harga ketika di edit
+- validasi
+- validasi harga
+- status 3
+
+
+
+UPDATE `tb_buku` SET `status`=6 WHERE `status`=3 AND `judul` IN (SELECT `judul` FROM `tb_buku` WHERE `status`=1 OR `status`=3 GROUP BY `judul` HAVING COUNT(*)>1);
+
+SELECT * FROM tb_buku WHERE `status`=2 OR `status`=3 AND `id_buku` IN (SELECT `buku_id` FROM `tb_bantu_pilih` WHERE `user_id`=3 HAVING COUNT(*)>1);
+
+SELECT * FROM tb_buku WHERE `status`=2 OR `status`=3 AND `id_buku` IN (SELECT `buku_id` FROM `tb_bantu_pilih` WHERE `user_id`=3  GROUP BY `judul` HAVING COUNT(*)>1);

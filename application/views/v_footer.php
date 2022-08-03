@@ -5,11 +5,6 @@
     
   </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -36,6 +31,8 @@
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
    
     $('#preloader').css('display','none');
+    $('#preloader2').css('display','none');
+    
   });
 </script>
 </body>
