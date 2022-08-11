@@ -3,6 +3,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_buku extends CI_Model {
 
+	//dashboard
+	public function select_curr_tahapan(){
+
+      $this->db->select('*');
+      $this->db->where('id','1');
+	  return $this->db->get('tb_curr_tahapan');
+	}
+
+	function total_database_buku(){
+	  $this->db->where('status','1');
+      return $this->db->count_all_results('tb_buku');
+	 
+	}
+	function total_katalog_buku(){
+	  $this->db->where('status','2');
+      return $this->db->count_all_results('tb_buku');
+	 
+	}
+	function total_pengguna(){
+	  $this->db->where('jenis_user','user');
+      return $this->db->count_all_results('operator');
+	 
+	}
+	function total_buku_terpilih(){
+      return $this->db->count_all_results('tb_bantu_pilih');
+	 
+	}
+
+
+
+
+	//buku
+
 	public function select_all(){
 
       $this->db->select('*');
@@ -21,6 +54,13 @@ class M_buku extends CI_Model {
       $this->db->where('status','1');
 	  return $this->db->get('tb_buku');
 	}
+	public function katalog(){
+
+      $this->db->select('*');
+      $this->db->where('status','2');
+	  return $this->db->get('tb_buku');
+	}
+
 	public function select_katalog($status){
 
 	  $id= $this->session->userdata('id_user');
@@ -29,8 +69,6 @@ class M_buku extends CI_Model {
       $this->db->where('id_buku NOT IN (SELECT buku_id FROM tb_bantu_pilih WHERE user_id='.$id.' )');
       $this->db->order_by('id_buku',"desc");
 	  return $this->db->get('tb_buku');
-
-
 	}
 
 	public function tambah_katalog($data){
@@ -166,6 +204,59 @@ class M_buku extends CI_Model {
 		return $result;
 		
 	}
-	
 
+
+	public function proses_cek_dupliat(){
+	
+	 	//SELECT * FROM `tb_buku` WHERE `status`=2 AND`jumlah`!=0 AND `ISBN` IN (SELECT `ISBN` FROM `tb_buku` WHERE `status`=1);
+
+	 	$this->db->select('id_buku');
+		$this->db->where('status','2');
+		$this->db->where('jumlah!=0');
+		$this->db->where('ISBN IN (SELECT ISBN FROM tb_buku WHERE status=1)');
+		return $this->db->get('tb_buku');
+	}
+
+	public function proses_hapus_dupliat(){
+	
+	 	$data = array(
+			'status' => '6',
+			'jumlah' => '0',
+			'total_harga' => '0',
+			);
+		$this->db->where('status','2');
+		$this->db->where('jumlah!=0');
+		$this->db->where('ISBN IN (SELECT ISBN FROM tb_buku WHERE status=1)');
+		$this->db->update('tb_buku', $data);
+
+		$data2 = array(
+			'tahapan' => '1',
+			);
+		$this->db->where('id','1');
+		$this->db->update('tb_curr_tahapan', $data2);
+
+
+		
+
+	}
+
+	public function proses_update_status(){
+	
+	 	$data = array(
+			'status' => '3',
+			);
+		$this->db->where('status','2');
+		$this->db->where('jumlah!=0');
+		$this->db->where('total_harga!=0');
+		$this->db->update('tb_buku', $data);
+		
+
+	}
+
+	public function hasil_rekomendasi(){
+
+      $this->db->select('*');
+      $this->db->where('status','3');
+	  return $this->db->get('tb_buku');
+	}
 }

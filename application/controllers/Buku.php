@@ -32,7 +32,7 @@ class Buku extends CI_Controller {
 
 	public function katalog(){
 
-		$data['buku']=$this->M_buku->select_katalog();
+		$data['buku']=$this->M_buku->katalog();
 
 		$this->load->view('v_katalog',$data);
 
@@ -88,7 +88,7 @@ class Buku extends CI_Controller {
 
     public function detail()
         {
-          $data['buku']=$this->M_buku->select_katalog();
+          $data['buku']=$this->M_buku->katalog();
 		  $this->load->view('v_tabel_buku',$data);
 
         }
@@ -129,6 +129,10 @@ class Buku extends CI_Controller {
 
     public function pilihan_user(){
 
+    	$curr=$this->M_buku->select_data_curr()->row();
+		$data['tahapan']= $curr->tahapan;
+    	
+
     	$cek= $this->M_buku->all_total_harga_terpilih();
 
 		$total=0;
@@ -156,6 +160,46 @@ class Buku extends CI_Controller {
 		// $this->load->view('v_pilih_buku',$data);
 
 	// }
+
+	// Proses Seleksi
+
+	 public function proses_cek_dupliat(){
+
+
+	 	$cek= $this->M_buku->proses_cek_dupliat();
+
+		foreach ($cek->result() as $row){
+		
+			$this->db->where('buku_id', $row->id_buku);
+            $this->db->delete('tb_bantu_pilih');
+		}
+
+	 	   $this->M_buku->proses_hapus_dupliat();
+	 	   $this->M_buku->proses_update_status();
+
+	 }
+
+	 public function hasil_rekomendasi()
+        {
+          $curr=$this->M_buku->select_data_curr()->row();
+          $data['anggaran']= $this->rupiah($curr->anggaran);
+
+          $cek= $this->M_buku->all_total_harga_terpilih();
+
+			$total=0;
+			foreach ($cek->result() as $harga){
+			$total+=$harga->total_harga_terpilih;
+			}
+			$curr=$this->M_buku->select_data_curr()->row();
+			$data['anggaran']= $this->rupiah($curr->anggaran);
+
+			
+			$data['total_terpilih']= $this->rupiah($total);
+
+          $data['buku']=$this->M_buku->hasil_rekomendasi();
+		  $this->load->view('v_hasil_rekomendasi',$data);
+
+        }
 
 
 

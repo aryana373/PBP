@@ -32,10 +32,22 @@ require('v_header.php');
 
             <div class="card" id="tables-katalog">      
               <!-- /.card-header -->
-              <div class="card-body">     
-                <h5>Total Anggaran           : <?php echo $anggaran;  ?></h5>
-                <h5>Total Harga Buku Terpilih: <?php echo $total_terpilih;  ?></h5>
-               </div>
+                <div class="card-body">  
+                  <div class="row">   
+                       <div class="col-sm-6">    
+                        <h5>Total Anggaran           : <?php echo $anggaran;  ?></h5>
+                        <h5>Total Harga Buku Terpilih: <?php echo $total_terpilih;  ?></h5>
+                       </div>
+                       <div class="col-sm-6">
+                        <?php if ($tahapan=='0') { ?>
+                            <button id="proses" type="button" class="btn bg-gradient-danger btn float-right">Lakukan Seleksi Duplikasi </button> 
+                        <?php } else  {?>
+                            <button type="button" class="btn bg-gradient-danger btn float-right disabled" title="Proses Cek Duplikasi Sudah Dilakukan">Lakukan Seleksi Duplikasi </button> 
+                        <?php }  ?>
+                       </div>
+                   </div>
+                </div>
+
               <div class="card-body overlay-wrapper">
      
                   <div id="preloader" class="overlay" style="text-align: center;"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
@@ -88,111 +100,29 @@ require('v_header.php');
 
   
 
-  <!-- Modal Warning Product-->
-      <div class="modal fade" id="modalWarning-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id="eror" class="modal-body">
-            </div>
-          <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>   
-          </div>
-            </div>
-        </div>
-      </div>
 
   <!-- modal konfirmasi hapus -->
-      <div id="modalDelete" class="modal " tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div id="modalProses" class="modal overlay-wrapper" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div id="preloader2" class="overlay" style="text-align: center;"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Data Sedang Diproses....</div></div>
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                
                <div class="modal-body">
-                   Apakah anda ingin menghapus Data ini?
+                   <b>Perhatian!!</b> <br>
+                    Setelah Anda Klik proses, user tidak akan bisa melakukan input permintaan buku.
                </div> 
-                <input id="idHapus"  type="text" hidden >
                 
                <div class="modal-footer">
                   <div class="btn-group">
-                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Tidak</button>
-                     <button id="btn-delete" type="button" class="btn btn-danger btn-flat">Ya</button>
+                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Batal</button>
+                     <button id="btn-proses" type="button" class="btn btn-success btn-flat">Proses</button>
                   </div>
                </div>
             </div>
          </div>
       </div>
 
-  <!-- modal detail -->
-<div id="modalDetail" class="modal " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
-   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        
-
-         <div class="modal-body">
-             <div class="form-group">
-                <form role="form" method="post" action="" >
-                 <div class="card-body ">
-                        
-                           <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group">
-                                 <label >Judul Buku</label>
-                                 <textarea id="detail_judul"  type="" class="form-control" rows="3"  readonly></textarea>                                 
-                               </div>
-                              </div>
-                              <div class="col-sm-6">
-                                
-                                <div class="form-group">
-                                 <label >Pengarang</label>
-                                 <input id="detail_pengarang" type="text" class="form-control"  readonly >
-                                </div> 
-                                <div class="form-group">
-                                 <label >Penerbit</label>
-                                 <input  id="detail_penerbit" type="text" class="form-control"  readonly>
-                                </div>
-                                <div class="form-group">
-                                 <label >Tanggal Input</label>
-                                 <input id="detail_tgl" type="text" class="form-control"  readonly>
-                                </div>  
-
-                              </div>
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                 <label >Tahun</label>
-                                 <input id="detail_tahun" type="text" class="form-control"  readonly>
-                                </div>
-                              <div class="form-group">
-                                 <label >Harga</label>
-                                 <input id="detail_harga" type="text" class="form-control"  readonly>
-                                </div>
-                              <div class="form-group">
-                                 <label >Bahasa</label>
-                                 <input id="detail_bahasa" type="text" class="form-control"  readonly>
-                                </div>                          
-                              </div>
-                               
-                          </div> 
-                      </div>
-
-
-                </form>
-              </div>
-         </div>
-         <div class="modal-footer">
-            <div class="btn-group">
-               <button type="button" id="btn-cancel" class="btn btn-default btn-flat" data-dismiss="modal">Tutup</button>
-              
-            </div>
-         </div>
-         
-   </div>
-</div>
-</div>
+  
 
 
    
@@ -232,184 +162,45 @@ require('v_footer.php');
 
 
 
-   $('#input').click(function(event) {
-        $('#inputkatalog').show('slow');
-        $('#input').css('display','none');
+   $('#proses').click(function(event) {
+        $('#modalProses').modal('show');
     });
-    $('#batal').click(function(event) {
-        $('#inputkatalog').css('display','none');
-        $('#input').css('display','block');
-    });
-    $('#batal2').click(function(event) {
-        $('#editkatalog').css('display','none');
-        $('#input').css('display','block');
-    });
+    // $('#batal').click(function(event) {
+    //     $('#inputkatalog').css('display','none');
+    //     $('#input').css('display','block');
+    // });
+    // $('#batal2').click(function(event) {
+    //     $('#editkatalog').css('display','none');
+    //     $('#input').css('display','block');
+    // });
 
 
 
- // get Delete Product
-    
-    function deleteBuku(id) {
-      $('#modalDelete').modal();
-      $('#idHapus').val(id);
-  
-    }
 
-
-    $('#btn-delete').click(function(event) {
-      var id = $('#idHapus').val();
-      
-        $('#modalDelete').modal('hide');
-        $('#preloader').css('display','block');
-        //$('#list-table').html('');
-        $.get("<?php echo base_url();?>"+"User/hapus_pilihan/"+id, function(data) {
-          
-           $('#tables-katalog').html(data);
-           $("#example1").DataTable({
-                          "responsive": true, "lengthChange": false, "autoWidth": false,
-                          "buttons": ["copy", "csv", "excel", "pdf"]
-                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-           $('#preloader').css('display','none');
-          // Toast.fire({
-          //     icon: 'success',
-          //     title: '<b style="color:red">Sukses!! Data Pada Katalog Berhasil Dihapus!!<b>'
-          //   })
-          toastr.error('Data Pada Katalog Berhasil Dihapus!!')
+    $('#btn-proses').click(function(event) {
+            
+        
+        $('#preloader2').css('display','block');
+        $.get("<?php echo base_url();?>"+"Buku/proses_cek_dupliat/", function(data) {
+          //  $('#tables-katalog').html(data);
+          //  $("#example1").DataTable({
+          //                 "responsive": true, "lengthChange": false, "autoWidth": false,
+          //                 "buttons": ["copy", "csv", "excel", "pdf"]
+          //               }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+          //  
+          // // Toast.fire({
+          // //     icon: 'success',
+          // //     title: '<b style="color:red">Sukses!! Data Pada Katalog Berhasil Dihapus!!<b>'
+          // //   })
+          $('#preloader').css('display','none');
+          toastr.success('Data Berhasil Diproses!!')
+          window.location.href = "<?php echo site_url('Buku/pilihan_user'); ?>";
         });
       });
 
 
-   $('#btn-add-katalog').click(function(event) {
-           
-            
-           
-            var judul = $('#inputkatalog').find('#add_judul').val();
-            var pengarang = $('#inputkatalog').find('#add_pengarang ').val();
-            var penerbit = $('#inputkatalog').find('#add_penerbit').val();
-            var tahun = $('#inputkatalog').find('#add_tahun').val();
-            var harga = $('#inputkatalog').find('#add_harga').val();
-            var bahasa = $('#inputkatalog').find('#add_bahasa').val();
-           
-            if (judul==''|| pengarang==''|| penerbit==''|| tahun==''|| harga==''|| bahasa=='') {
-                $("#eror").html('Data belum lengkap !!!');
-                $('#modalWarning-user').modal();
-            } 
+  
 
-            else {
-                  $('#inputkatalog').css('display','none');
-                  $('#preloader').css('display','block');
-                   // $('#tabel-katalog').css('display', 'none');
-                   $.post( "<?php echo base_url();?>"+"Buku/tambah_katalog/", {judul: judul, pengarang:pengarang, penerbit: penerbit, tahun: tahun,harga:harga, bahasa:bahasa }, function(data) {
-                        $('#form-create-katalog').trigger("reset");
-                        $('#input').css('display','block');
-                        
-                        $('#tables-katalog').html(data);
-                        
-                        $("#example1").DataTable({
-                          "responsive": true, "lengthChange": false, "autoWidth": false,
-                          "buttons": ["copy", "csv", "excel", "pdf"]
-                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                        $('#preloader').css('display','none');
-
-                        // Toast.fire({
-                        //     icon: 'success',
-                        //     title: 'Data Berhasil Disimpan!!'
-                        //   })
-                        toastr.success('Data Katalog Baru Berhasil Disimpan!!')
-                    }); 
-
-            }
-
-             
-
-        });
-
-  function detail(id) {
-      
-
-            $('#modalDetail').modal();
-            $.get("<?php echo base_url();?>"+"User/detail_buku/"+id, function(detail) {
-            var detail=jQuery.parseJSON(detail+"");
-              $('#detail_judul').val(detail.judul);
-              $('#detail_pengarang').val(detail.pengarang);
-              $('#detail_penerbit').val(detail.penerbit);
-              $('#detail_tgl').val(detail.tgl_input);
-              $('#detail_tahun').val(detail.tahun);
-              $('#detail_harga').val(detail.harga);
-              $('#detail_bahasa').val(detail.bahasa);
-              
-            
-              //console.log(lokasi.nama);
-            });
-
-
-    }
-
-  function editBuku(id){
-    $("#editkatalog").show('slow');
-    $('#input').css('display','none');
-    $('#inputkatalog').css('display','none');
-
-     $.get("<?php echo base_url();?>"+"Buku/detail_buku/"+id, function(detail) {
-            var detail=jQuery.parseJSON(detail+"");
-              $('#edit_judul').val(detail.judul);
-              $('#edit_pengarang').val(detail.pengarang);
-              $('#edit_penerbit').val(detail.penerbit);
-              $('#edit_tahun').val(detail.tahun);
-              $('#edit_harga').val(detail.harga);
-              $('#edit_bahasa').val(detail.bahasa);
-              
-
-            $('#btn-edit-katalog').click(function(event) {
-
-                  var judul = $('#editkatalog').find('#edit_judul').val();
-                  var pengarang = $('#editkatalog').find('#edit_pengarang ').val();
-                  var penerbit = $('#editkatalog').find('#edit_penerbit').val();
-                  var tahun = $('#editkatalog').find('#edit_tahun').val();
-                  var harga = $('#editkatalog').find('#edit_harga').val();
-                  var bahasa = $('#editkatalog').find('#edit_bahasa').val();
-            
-            
-             if (judul==''|| pengarang==''|| penerbit==''|| tahun==''|| harga==''|| bahasa=='') {
-                $("#eror").html('Data belum lengkap !!!');
-                $('#modalWarning-user').modal();
-                } 
-
-             else {
-                    $('#preloader').css('display','block');
-                    $('#editkatalog').css('display', 'none');
-
-
-                        
-                       $.post("<?php echo base_url();?>"+"Buku/update_buku/", {id:id,judul: judul, pengarang:pengarang, penerbit: penerbit, tahun: tahun,harga:harga, bahasa:bahasa }, function(data, textStatus, xhr) {
-
-                             Toast.fire({
-                                icon: 'success',
-                                title: 'Data Katalog Berhasil Dirubah!!'
-                              })
-                            
-                            $('#input').css('display','block');
-                        
-                            $('#tables-katalog').html(data);
-                            
-                            $("#example1").DataTable({
-                              "responsive": true, "lengthChange": false, "autoWidth": false,
-                              "buttons": ["copy", "csv", "excel", "pdf"]
-                            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                            $('#preloader').css('display','none');
-
-                           
-                            
-                        }); 
-
-
-                   }
-            
-            
-            }); 
-        });
-        }
-    
 
    
 

@@ -60,16 +60,9 @@ class User extends CI_Controller {
 		$data['total_terpilih']= $this->rupiah($total);
 		
 
-		if ($tahapan==0) {
-			$data['buku']=$this->M_buku->select_buku_terpilih();	
-			$data['pesan']= 'Pengisian Data Permintan Buku Akan Ditutup pada: '.$curr->tgl_selesai_input;
-		
-			
-
-		} else{
-			$data['buku']=$this->M_buku->select_buku_terpilihx();
-			$data['pesan']= 'Pengisian Data Sudah Ditutup';
-		}
+		$data['buku']=$this->M_buku->select_buku_terpilih();	
+		$data['pesan']= 'Pengisian Data Permintan Buku Akan Ditutup pada: '.$curr->tgl_selesai_input;
+		$data['tahapan']= $tahapan;
 		
 		$this->load->view('v_buku_terpilih',$data);
 

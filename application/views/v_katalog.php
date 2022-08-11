@@ -552,7 +552,7 @@ require('v_footer.php');
                   var bahasa = $('#editkatalog').find('#edit_bahasa').val();
             
             
-             if (judul==''|| pengarang==''|| penerbit==''|| tahun==''|| harga==''|| bahasa=='') {
+             if (judul==''|| pengarang==''|| penerbit==''|| tahun==''|| harga==''||harga<=0|| bahasa=='') {
                 $("#eror").html('Data belum lengkap !!!');
                 $('#modalWarning-user').modal();
                 } 

@@ -28,7 +28,12 @@ require('v_header.php');
         <div class="alert alert-warning alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
-                  <?php echo $pesan; ?> 
+                  <?php if ($tahapan==0) {
+                         echo $pesan;
+                        } else{
+                         echo 'Pengisian Data Sudah Ditutup';
+                        } ?>
+                   
                 </div>
 
         <div class="row">
@@ -46,7 +51,7 @@ require('v_header.php');
      
                   <div id="preloader" class="overlay" style="text-align: center;"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
 
-  
+                <?php if ($tahapan==0) { ?>
                 <table style="text-align: justify; font-size: 14;" id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr style="background:  #050354; color: white; text-align: center;">
@@ -72,8 +77,8 @@ require('v_header.php');
                        <td style=" width: 100px;text-align: center;">
                             <div class="btn-group">  
                                  <button onclick="detail(<?php echo $row->id_buku; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip" title="Detail"><i class="fa fa-search"></i></button>
-                                 <button onclick="deleteBuku(<?php echo $row->id_pilih; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus">
-                                <i class="fa fa-trash"></i></button>
+                                  
+                                    <button onclick="deleteBuku(<?php echo $row->id_pilih; ?>);" class="btn btn-danger btn-flat" type="button" data-toggle="tooltip" title="Hapus"><i class="fa fa-trash"></i></button>
                                 
                             </div>
                         </td>
@@ -83,6 +88,7 @@ require('v_header.php');
                   </tbody>
                   
                 </table>
+                 <?php }  ?>
               </div>
               <!-- /.card-body -->
             </div>
