@@ -139,35 +139,14 @@
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a id="terpilih_user" href="<?php echo base_url('Buku/pilihan_user') ?>" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Seleksi Pengadaan
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul id="dropdown" class="nav nav-treeview" >
-              <li class="nav-item ">
-                <a id="terpilih_user" href="<?php echo base_url('Buku/pilihan_user') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pilihan User</p>
-                </a>
-              </li>
-             <!--  <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Seleksi Duplikat</p>
-                </a>
-              </li> -->
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Seleksi Tahun</p>
-                </a>
-              </li>
-              
-            </ul>
           </li>
           <li class="nav-item">
             <a id="hasil" href="<?php echo base_url('Buku/hasil_rekomendasi') ?>" class="nav-link">

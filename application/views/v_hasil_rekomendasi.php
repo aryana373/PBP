@@ -32,6 +32,23 @@ require('v_header.php');
               <h5>Total Anggaran           : <?php echo $anggaran;  ?></h5>
               <h5>Total Harga Buku Terpilih: <?php echo $total_terpilih;  ?></h5>
              </div> 
+
+             <div class="card-body">  
+             <?php if ($tahapan=='0') { ?>
+              <h5 style="color:red;">Seleksi Duplikat <i class="icon fas fa-ban"></i></h5>
+              <h5 style="color:red;">Seleksi Tahun   <i class="icon fas fa-ban"></i> </h5>
+             <?php } else if ($tahapan=='1')  {?>   
+              <h5 style="color:green;">Seleksi Duplikat <i class="icon fas fa-check"></i></h5>
+              <h5 style="color:red;">Seleksi Tahun   <i class="icon fas fa-ban"></i> </h5>
+             <?php } else {  ?>
+              <h5 style="color:green;">Seleksi Duplikat <i class="icon fas fa-check"></i></h5>
+              <h5 style="color:green;">Seleksi Tahun   <i class="icon fas fa-check"></i> </h5>
+
+               <?php }  ?>
+              
+              
+             </div> 
+
               <!-- /.card-header -->
                <div class="card-body overlay-wrapper">
      

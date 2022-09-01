@@ -229,11 +229,6 @@ class M_buku extends CI_Model {
 		$this->db->where('ISBN IN (SELECT ISBN FROM tb_buku WHERE status=1)');
 		$this->db->update('tb_buku', $data);
 
-		$data2 = array(
-			'tahapan' => '1',
-			);
-		$this->db->where('id','1');
-		$this->db->update('tb_curr_tahapan', $data2);
 
 
 		
@@ -250,6 +245,38 @@ class M_buku extends CI_Model {
 		$this->db->where('total_harga!=0');
 		$this->db->update('tb_buku', $data);
 		
+		
+
+	}
+
+	public function proses_update_status_seleksi_tahun($id){
+	
+	 	$data = array(
+			'status' => '2',
+			'jumlah' => '0',
+			'total_harga' => '0',
+			);
+		$this->db->where('id_buku',$id);
+		$this->db->update('tb_buku', $data);
+
+		
+		
+
+	}
+
+	public function update_curr_tahapan($tahapan){
+		$data = array(
+			'tahapan' => $tahapan,
+			);
+		$this->db->where('id','1');
+		$this->db->update('tb_curr_tahapan', $data);
+
+	}
+
+	public function proses_cek_tahun($tahun){
+	  $this->db->select('*');
+      $this->db->where('tahun< '.$tahun.'');
+	  return $this->db->get('tb_buku');
 
 	}
 

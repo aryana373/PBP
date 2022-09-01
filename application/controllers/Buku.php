@@ -176,11 +176,34 @@ class Buku extends CI_Controller {
 
 	 	   $this->M_buku->proses_hapus_dupliat();
 	 	   $this->M_buku->proses_update_status();
+	 	   $this->M_buku->update_curr_tahapan('1');
+
+	 }
+
+	 public function proses_seleksi_tahun($tahun){
+
+	 	
+	 	$cek= $this->M_buku->proses_cek_tahun($tahun);
+
+		foreach ($cek->result() as $row){
+		
+			$this->db->where('buku_id', $row->id_buku);
+            $this->db->delete('tb_bantu_pilih');
+
+            $this->M_buku->proses_update_status_seleksi_tahun($row->id_buku);
+		}
+		$this->M_buku->update_curr_tahapan('2');
+
+	
+	 	   
 
 	 }
 
 	 public function hasil_rekomendasi()
         {
+          $curr=$this->M_buku->select_data_curr()->row();
+		  $data['tahapan']= $curr->tahapan;
+
           $curr=$this->M_buku->select_data_curr()->row();
           $data['anggaran']= $this->rupiah($curr->anggaran);
 
@@ -201,7 +224,13 @@ class Buku extends CI_Controller {
 
         }
 
+	 public function seleksi_tahun(){
 
+		$data['buku']=$this->M_buku->select_buku_database();
+
+		$this->load->view('v_seleksi_tahun',$data);
+
+		}
 
 
 

@@ -52,8 +52,7 @@ require('v_header.php');
                        <td><?php echo $row->tahun; ?></td>
                        <td style=" width: 100px;text-align: center;">
                             <div class="btn-group">
-                                <button onclick="detail(<?php echo $row->id_buku; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip" title="Detail"><i class="fa fa-search"></i></button>
-                                 <a class="btn btn-warning btn-flat"  target="_blank"  href="<?php echo base_url().'Surat/tambahSurat/'.$row->id_buku; ?>" type="button" class="btn"  title="Tambah Surat" ><i class="fa fa-plus"></i></a>     
+                                <button onclick="detail(<?php echo $row->id_buku; ?>);" class="btn btn-primary btn-flat" type="button" data-toggle="tooltip" title="Detail"><i class="fa fa-search"></i></button>  
                                 
                             </div>
                         </td>
@@ -77,6 +76,73 @@ require('v_header.php');
     <!-- /.content -->
   </div>
 
+   <!-- modal detail -->
+<div id="modalDetail" class="modal " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        
+
+         <div class="modal-body">
+             <div class="form-group">
+                <form role="form" method="post" action="" >
+                 <div class="card-body ">
+                        
+                           <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                 <label >Judul Buku</label>
+                                 <textarea id="detail_judul"  type="" class="form-control" rows="3"  readonly></textarea>                                 
+                               </div>
+                              </div>
+                              <div class="col-sm-6">
+                                
+                                <div class="form-group">
+                                 <label >Pengarang</label>
+                                 <input id="detail_pengarang" type="text" class="form-control"  readonly >
+                                </div> 
+                                <div class="form-group">
+                                 <label >Penerbit</label>
+                                 <input  id="detail_penerbit" type="text" class="form-control"  readonly>
+                                </div>
+                                <div class="form-group">
+                                 <label >Tanggal Input</label>
+                                 <input id="detail_tgl" type="text" class="form-control"  readonly>
+                                </div>  
+
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                 <label >Tahun</label>
+                                 <input id="detail_tahun" type="text" class="form-control"  readonly>
+                                </div>
+                              <div class="form-group">
+                                 <label >Harga</label>
+                                 <input id="detail_harga" type="text" class="form-control"  readonly>
+                                </div>
+                              <div class="form-group">
+                                 <label >Bahasa</label>
+                                 <input id="detail_bahasa" type="text" class="form-control"  readonly>
+                                </div>                          
+                              </div>
+                               
+                          </div> 
+                      </div>
+
+
+                </form>
+              </div>
+         </div>
+         <div class="modal-footer">
+            <div class="btn-group">
+               <button type="button" id="btn-cancel" class="btn btn-default btn-flat" data-dismiss="modal">Tutup</button>
+              
+            </div>
+         </div>
+         
+   </div>
+</div>
+</div>
+
   <?php
 require('v_footer.php');
 ?>
@@ -95,6 +161,27 @@ require('v_footer.php');
  <script>
 
   $('#buku').addClass("active");
+
+  function detail(id) {
+      
+
+            $('#modalDetail').modal();
+            $.get("<?php echo base_url();?>"+"Buku/detail_buku/"+id, function(detail) {
+            var detail=jQuery.parseJSON(detail+"");
+              $('#detail_judul').val(detail.judul);
+              $('#detail_pengarang').val(detail.pengarang);
+              $('#detail_penerbit').val(detail.penerbit);
+              $('#detail_tgl').val(detail.tgl_input);
+              $('#detail_tahun').val(detail.tahun);
+              $('#detail_harga').val(detail.harga);
+              $('#detail_bahasa').val(detail.bahasa);
+              
+            
+              //console.log(lokasi.nama);
+            });
+
+
+    }
   
 
 </script>

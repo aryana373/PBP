@@ -41,9 +41,17 @@ require('v_header.php');
                        <div class="col-sm-6">
                         <?php if ($tahapan=='0') { ?>
                             <button id="proses" type="button" class="btn bg-gradient-danger btn float-right">Lakukan Seleksi Duplikasi </button> 
-                        <?php } else  {?>
+                        <?php } else if ($tahapan=='1')   {?>
                             <button type="button" class="btn bg-gradient-danger btn float-right disabled" title="Proses Cek Duplikasi Sudah Dilakukan">Lakukan Seleksi Duplikasi </button> 
-                        <?php }  ?>
+                            <br><br>
+                            <button id="proses2" type="button" class="btn bg-gradient-warning btn float-right">Lakukan Seleksi Tahun Terbitan </button> 
+                        <?php } else {  ?>
+                           <button type="button" class="btn bg-gradient-danger btn float-right disabled" title="Proses Cek Duplikasi Sudah Dilakukan">Lakukan Seleksi Duplikasi </button> 
+                            <br><br>
+                            <button type="button" class="btn bg-gradient-warning btn float-right disabled" title="Proses Seleksi Tahun Sudah Dilakukan">Lakukan Seleksi Tahun Terbitan </button> 
+                          
+
+                        <?php }   ?>
                        </div>
                    </div>
                 </div>
@@ -51,7 +59,7 @@ require('v_header.php');
               <div class="card-body overlay-wrapper">
      
                   <div id="preloader" class="overlay" style="text-align: center;"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
-
+                  <div id="preloader3" class="overlay" style="text-align: center;display: none;"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Data Sedang Diproses....</div></div>
   
                 <table style="text-align: justify; font-size: 14;" id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -101,7 +109,7 @@ require('v_header.php');
   
 
 
-  <!-- modal konfirmasi hapus -->
+  
       <div id="modalProses" class="modal overlay-wrapper" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div id="preloader2" class="overlay" style="text-align: center;"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Data Sedang Diproses....</div></div>
          <div class="modal-dialog" role="document">
@@ -122,6 +130,34 @@ require('v_header.php');
          </div>
       </div>
 
+  <!-- modal Proses2 -->
+      <div id="modalProses2" class="modal " tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               
+               <div class="modal-body">
+                   <div class="form-group">
+                                 <label >Masukkan Minimal Tahun</label>
+                                 <select  id="tahun" class="form-control" >
+                                    <?php
+                                      for($i=1990; $i<= date('Y'); $i+=1){
+                                      echo'<option value='.$i.'> '.$i.' </option>';
+                                      }
+                                      ?>
+                                  </select>
+                                </div> 
+               </div> 
+                
+               <div class="modal-footer">
+                  <div class="btn-group">
+                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Tidak</button>
+                     <button id="btn-proses2" type="button" class="btn btn-success btn-flat">Ya</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
   
 
 
@@ -174,8 +210,34 @@ require('v_footer.php');
     //     $('#input').css('display','block');
     // });
 
+     $('#proses2').click(function(event) {
+        $('#modalProses2').modal('show');
+    });
 
 
+
+
+    $('#btn-proses2').click(function(event) {
+            
+        var tahun = $('#tahun').val();
+        $('#modalProses2').modal('hide');
+        $('#preloader3').css('display','block');
+        $.get("<?php echo base_url();?>"+"Buku/proses_seleksi_tahun/"+tahun, function(data) {
+          //  $('#tables-katalog').html(data);
+          //  $("#example1").DataTable({
+          //                 "responsive": true, "lengthChange": false, "autoWidth": false,
+          //                 "buttons": ["copy", "csv", "excel", "pdf"]
+          //               }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+          //  
+          // // Toast.fire({
+          // //     icon: 'success',
+          // //     title: '<b style="color:red">Sukses!! Data Pada Katalog Berhasil Dihapus!!<b>'
+          // //   })
+          $('#preloader').css('display','none');
+          toastr.success('Data Berhasil Diproses!!')
+          window.location.href = "<?php echo site_url('Buku/pilihan_user'); ?>";
+        });
+      });
 
     $('#btn-proses').click(function(event) {
             
